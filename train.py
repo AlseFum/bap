@@ -55,14 +55,14 @@ if not os.path.exists(args.modelsSavePath):
 
 dataRoot = args.dataRoot
 data_test_root='./dataset_test/images'
-print(f"dataRoot:{} \n data_test_root:{}", dataRoot, './dataset_test/images')
+print(f"dataRoot:{ dataRoot} \n data_test_root:{data_test_root}")
 
 Erase_data = ErasingData(dataRoot, loadSize, training=True, mask_dir=args.mask_dir)
 Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_workers=args.numOfWorkers, drop_last=False)
 Erase_val_data = devdata(dataRoot=data_test_root, gtRoot=data_test_root.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
 
-print(f'==[test count:{}]============', len(Erase_val_data))
+print('==[test count:{}]============', len(Erase_val_data))
 if args.net == 'str':
     netG = STRnet2(3)
     print('==[Net:STRnet2(3)]============|')
