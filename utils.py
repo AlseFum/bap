@@ -2,7 +2,6 @@ import os
 
 import paddle
 
-
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
 import numpy as np
@@ -126,4 +125,19 @@ def load_pretrained_model(model, pretrained_model):
         print('No pretrained model to load, {} will be trained from scratch.'
               .format(model.__class__.__name__))
 
+
+
+def check_path(input_path):
+    # 转换为绝对路径
+    absolute_path = os.path.abspath(input_path)
+    
+    # 判断路径类型
+    if os.path.isfile(absolute_path):
+        path_type = "文件"
+    elif os.path.isdir(absolute_path):
+        path_type = "文件夹"
+    else:
+        path_type = "其他"
+
+    return absolute_path, path_type
 

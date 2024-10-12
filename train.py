@@ -55,31 +55,13 @@ if not os.path.exists(args.modelsSavePath):
 
 dataRoot = args.dataRoot
 data_test_root='./dataset_test/images'
-print(f"dataRoot:{ os.path.adataRoot} \n data_test_root:{data_test_root}")
 
-import os
 
-def check_path(input_path):
-    # 转换为绝对路径
-    absolute_path = os.path.abspath(input_path)
-    
-    # 判断路径类型
-    if os.path.isfile(absolute_path):
-        path_type = "文件"
-    elif os.path.isdir(absolute_path):
-        path_type = "文件夹"
-    else:
-        path_type = "其他"
-
-    return absolute_path, path_type
-
-# 输入相对路径
-
+from utils import check_path
 absolute_path, path_type = check_path(dataRoot)
-
-print(f"绝对路径: {absolute_path}")
-print(f"路径类型: {path_type}")
-
+print(f"[数据集]{absolute_path}:{{path_type}}")
+absolute_path, path_type = check_path(data_test_root)
+print(f"[测试集]{absolute_path}:{{path_type}}")
 
 
 
@@ -90,7 +72,7 @@ Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_work
 Erase_val_data = devdata(dataRoot=data_test_root, gtRoot=data_test_root.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
 
-print('==[test count:{}]============', len(Erase_val_data))
+print('==[test count:{ len(Erase_val_data)}]============',)
 if args.net == 'str':
     netG = STRnet2(3)
     print('==[Net:STRnet2(3)]============|')
