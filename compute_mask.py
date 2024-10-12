@@ -6,9 +6,12 @@ save_path = '../dataset/mask_331_25/'
 gts = sorted(glob.glob(path + '/gts/*'))
 images = sorted(glob.glob(path + '/images/*'))
 os.makedirs(save_path, exist_ok=True)
-# print(gts,images)
+round=0
 for gt_f,im_f in zip(gts,images):
-    print(gt_f)
+    round+=1
+    if round%50==0:
+        print(f"compute mask {round}")
+    #print(gt_f)
     gt = cv2.imread(gt_f)
     im = cv2.imread(im_f)
     # mask = np.where(abs(gt.astype(np.float32) - im.astype(np.float32)) > 40, 0, 1)

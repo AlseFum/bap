@@ -54,7 +54,7 @@ if not os.path.exists(args.modelsSavePath):
     os.makedirs(args.modelsSavePath)
 
 dataRoot = args.dataRoot
-data_test_root='./dataset_test/images'
+data_test_root='../dataset_test/images'
 
 
 from utils import check_path
@@ -101,7 +101,7 @@ for epoch in range(1, num_epochs + 1):
 
     for k, (imgs, gt, masks, path) in enumerate(Erase_data):
         iters += 1
-        #print(imgs.max(), gt.max(), masks.max())
+        print(imgs.max(), gt.max(), masks.max())
 
         x_o1, x_o2, x_o3, fake_images, mm = netG(imgs)
         G_loss = criterion(imgs, masks, x_o1, x_o2, x_o3, fake_images, mm, gt, count, epoch)
