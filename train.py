@@ -59,9 +59,9 @@ data_test_root='./dataset_test/images'
 
 from utils import check_path
 absolute_path, path_type = check_path(dataRoot)
-print(f"[数据集]{absolute_path}:{{path_type}}")
+print(f"[数据集]{absolute_path}:{path_type}")
 absolute_path, path_type = check_path(data_test_root)
-print(f"[测试集]{absolute_path}:{{path_type}}")
+print(f"[测试集]{absolute_path}:{path_type}")
 
 
 
