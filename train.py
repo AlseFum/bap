@@ -57,7 +57,7 @@ dataRoot = args.dataRoot
 
 Erase_data = ErasingData(dataRoot, loadSize, training=True, mask_dir=args.mask_dir)
 Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_workers=args.numOfWorkers, drop_last=False)
-val_dataRoot='./dataset/dehw_val_dataset/images'
+val_dataRoot='./dataset_test/images'
 Erase_val_data = devdata(dataRoot=val_dataRoot, gtRoot=val_dataRoot.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
 print('==============', len(Erase_val_data))
