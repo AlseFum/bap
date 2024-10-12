@@ -55,7 +55,35 @@ if not os.path.exists(args.modelsSavePath):
 
 dataRoot = args.dataRoot
 data_test_root='./dataset_test/images'
-print(f"dataRoot:{ dataRoot} \n data_test_root:{data_test_root}")
+print(f"dataRoot:{ os.path.adataRoot} \n data_test_root:{data_test_root}")
+
+import os
+
+def check_path(input_path):
+    # 转换为绝对路径
+    absolute_path = os.path.abspath(input_path)
+    
+    # 判断路径类型
+    if os.path.isfile(absolute_path):
+        path_type = "文件"
+    elif os.path.isdir(absolute_path):
+        path_type = "文件夹"
+    else:
+        path_type = "其他"
+
+    return absolute_path, path_type
+
+# 输入相对路径
+
+absolute_path, path_type = check_path(dataRoot)
+
+print(f"绝对路径: {absolute_path}")
+print(f"路径类型: {path_type}")
+
+
+
+
+
 
 Erase_data = ErasingData(dataRoot, loadSize, training=True, mask_dir=args.mask_dir)
 Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_workers=args.numOfWorkers, drop_last=False)
