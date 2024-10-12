@@ -54,21 +54,24 @@ if not os.path.exists(args.modelsSavePath):
     os.makedirs(args.modelsSavePath)
 
 dataRoot = args.dataRoot
+data_test_root='./dataset_test/images'
+print(f"dataRoot:{} \n data_test_root:{}", dataRoot, './dataset_test/images')
 
 Erase_data = ErasingData(dataRoot, loadSize, training=True, mask_dir=args.mask_dir)
 Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_workers=args.numOfWorkers, drop_last=False)
-val_dataRoot='./dataset_test/images'
-Erase_val_data = devdata(dataRoot=val_dataRoot, gtRoot=val_dataRoot.replace('images','gts'))
+Erase_val_data = devdata(dataRoot=data_test_root, gtRoot=data_test_root.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
-print('==============', len(Erase_val_data))
-print('==============>net use: ', args.net)
+
+print(f'==[test count:{}]============', len(Erase_val_data))
 if args.net == 'str':
     netG = STRnet2(3)
+    print('==[Net:STRnet2(3)]============|')
 elif args.net == 'idr':
     netG = STRAIDR(num_c=96)
-
+    print('==[Net:STRAIDR(num_c=96)]=====|')
+    
 if args.pretrained != '':
-    print('loaded ')
+    print('==[Pretrained]================|')
     weights = paddle.load(args.pretrained)
     netG.load_dict(weights)
 
@@ -77,7 +80,7 @@ scheduler = paddle.optimizer.lr.StepDecay(learning_rate=args.lr, step_size=args.
 G_optimizer = paddle.optimizer.Adam(scheduler, parameters=netG.parameters(), weight_decay=0.0)#betas=(0.5, 0.9))
 
 criterion = LossWithGAN_STE(lr=0.00001, betasInit=(0.0, 0.9), Lamda=10.0)
-print('OK!')
+print('Initialized.')
 num_epochs = args.num_epochs
 mse = nn.MSELoss()
 best_psnr = 0
