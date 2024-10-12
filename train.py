@@ -72,7 +72,7 @@ Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_work
 Erase_val_data = devdata(dataRoot=data_test_root, gtRoot=data_test_root.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
 
-print('==[test count:{ len(Erase_val_data)}]============',)
+print(f'==[test count:{ len(Erase_val_data)}]============',)
 if args.net == 'str':
     netG = STRnet2(3)
     print('==[Net:STRnet2(3)]============|')
@@ -90,11 +90,12 @@ scheduler = paddle.optimizer.lr.StepDecay(learning_rate=args.lr, step_size=args.
 G_optimizer = paddle.optimizer.Adam(scheduler, parameters=netG.parameters(), weight_decay=0.0)#betas=(0.5, 0.9))
 
 criterion = LossWithGAN_STE(lr=0.00001, betasInit=(0.0, 0.9), Lamda=10.0)
-print('Initialized.')
+
 num_epochs = args.num_epochs
 mse = nn.MSELoss()
 best_psnr = 0
 iters = 0
+print('Initialized.')
 for epoch in range(1, num_epochs + 1):
     netG.train()
 

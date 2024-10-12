@@ -1,8 +1,8 @@
 import cv2
 import os,glob, shutil
 import numpy as np
-path = './dataset'
-save_path = './dataset/mask_331_25/'
+path = '../dataset'
+save_path = '../dataset/mask_331_25/'
 gts = sorted(glob.glob(path + '/gts/*'))
 images = sorted(glob.glob(path + '/images/*'))
 os.makedirs(save_path, exist_ok=True)
