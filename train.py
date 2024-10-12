@@ -26,7 +26,7 @@ parser.add_argument('--lr', type=float, default=1e-4)
 parser.add_argument('--gamma', type=float, default=0.5, help='learning rate decay factor for step decay')
 parser.add_argument('--lr_decay_iters', type=int, default=400000, help='learning rate decay per N iters')
 parser.add_argument('--mask_dir', type=str, default='mask')
-parser.add_argument('--seed', type=int, default=2022)
+parser.add_argument('--seed', type=int, default=114514)
 args = parser.parse_args()
 
 log_file = os.path.join('./log', args.net + '_log.txt')
@@ -57,7 +57,7 @@ dataRoot = args.dataRoot
 
 Erase_data = ErasingData(dataRoot, loadSize, training=True, mask_dir=args.mask_dir)
 Erase_data = DataLoader(Erase_data, batch_size=batchSize, shuffle=True, num_workers=args.numOfWorkers, drop_last=False)
-val_dataRoot='./dataset/task2/dehw_val_dataset/images'
+val_dataRoot='./dataset/dehw_val_dataset/images'
 Erase_val_data = devdata(dataRoot=val_dataRoot, gtRoot=val_dataRoot.replace('images','gts'))
 Erase_val_data = DataLoader(Erase_val_data, batch_size=1, shuffle=False, num_workers=0, drop_last=False)
 print('==============', len(Erase_val_data))
